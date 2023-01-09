@@ -1,12 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { Stack, Button, Box, TextField, Typography } from "@mui/material";
+import { fetchData, exercisesOptions } from "../utils/fetchData";
+import HorizontalScrollbar from "./HorizontalScrollbar";
 
 const SearchExercises = () => {
   const [search, setSearch] = useState("");
+  const [exercises, setExercises] = useState([]);
+  const [bodyParts, setBodyParts] = useState([]);
+
+  useEffect(() => {
+    const fetchExercisesData = async () => {
+      const bodyPartsData = await fetchData(
+        "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises?muscle=biceps",
+        exercisesOptions
+      );
+      setBodyParts(["all", ...bodyPartsData]);
+    };
+    fetchExercisesData();
+  }, []);
 
   const handleSearch = async () => {
     if (search) {
-      //const exercises = await fetchDate();
+      const exercisesData = await fetchData(
+        "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises?muscle=biceps",
+        exercisesOptions
+      );
+
+      const searchExercises = exercisesData.filter((exercise) => {
+        exercise.name.toLowerCase().includes(search) ||
+          exercise.target.toLowerCase().includes(search) ||
+          exercise.equipment.toLowerCase().includes(search) ||
+          exercise.bodyPart.toLowerCase().includes(search);
+      });
+
+      setSearch("");
+      setExercises(searchExercises);
     }
   };
 
@@ -49,6 +77,9 @@ const SearchExercises = () => {
           onClick={handleSearch}>
           Search
         </Button>
+      </Box>
+      <Box sx={{ position: "relative", width: "100%", p: "20px" }}>
+        <HorizontalScrollbar data={bodyParts} />
       </Box>
     </Stack>
   );
