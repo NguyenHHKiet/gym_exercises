@@ -11,26 +11,29 @@ const SearchExercises = () => {
   useEffect(() => {
     const fetchExercisesData = async () => {
       const bodyPartsData = await fetchData(
-        "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises?muscle=biceps",
+        "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises",
         exercisesOptions
       );
+
       setBodyParts(["all", ...bodyPartsData]);
     };
     fetchExercisesData();
   }, []);
+  console.log(bodyParts);
 
   const handleSearch = async () => {
     if (search) {
       const exercisesData = await fetchData(
-        "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises?muscle=biceps",
+        "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises",
         exercisesOptions
       );
+      console.log(exercisesData);
 
       const searchExercises = exercisesData.filter((exercise) => {
         exercise.name.toLowerCase().includes(search) ||
-          exercise.target.toLowerCase().includes(search) ||
+          exercise.difficulty.toLowerCase().includes(search) ||
           exercise.equipment.toLowerCase().includes(search) ||
-          exercise.bodyPart.toLowerCase().includes(search);
+          exercise.instructions.toLowerCase().includes(search);
       });
 
       setSearch("");
