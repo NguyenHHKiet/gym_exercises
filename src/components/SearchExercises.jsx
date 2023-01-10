@@ -13,7 +13,6 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises",
         exercisesOptions
       );
-
       setBodyParts(["all", ...bodyPartsData]);
     };
     fetchExercisesData();
