@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Stack, Button, Box, TextField, Typography } from "@mui/material";
 import { fetchData, exercisesOptions } from "../utils/fetchData";
 import HorizontalScrollbar from "./HorizontalScrollbar";
+import PropTypes from "prop-types";
 
 const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState("");
@@ -10,7 +11,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   useEffect(() => {
     const fetchExercisesData = async () => {
       const bodyPartsData = await fetchData(
-        "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises",
+        "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
         exercisesOptions
       );
       setBodyParts(["all", ...bodyPartsData]);
@@ -21,18 +22,19 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const handleSearch = async () => {
     if (search) {
       const exercisesData = await fetchData(
-        "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises",
+        "https://exercisedb.p.rapidapi.com/exercises",
         exercisesOptions
       );
-      console.log(exercisesData);
 
-      const searchExercises = exercisesData.filter((exercise) => {
-        exercise.name.toLowerCase().includes(search) ||
-          exercise.difficulty.toLowerCase().includes(search) ||
-          exercise.equipment.toLowerCase().includes(search) ||
-          exercise.instructions.toLowerCase().includes(search);
-      });
+      const searchExercises = exercisesData.filter(
+        (item) =>
+          item.name.toLowerCase().includes(search) ||
+          item.target.toLowerCase().includes(search) ||
+          item.equipment.toLowerCase().includes(search) ||
+          item.bodyPart.toLowerCase().includes(search)
+      );
 
+      window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
       setSearch("");
       setExercises(searchExercises);
     }
@@ -83,6 +85,12 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
       </Box>
     </Stack>
   );
+};
+
+SearchExercises.propTypes = {
+  setBodyPart: PropTypes.func.isRequired,
+  setExercises: PropTypes.func.isRequired,
+  bodyPart: PropTypes.string.isRequired
 };
 
 export default SearchExercises;
