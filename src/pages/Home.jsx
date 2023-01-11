@@ -8,8 +8,6 @@ const Home = () => {
   const [bodyPart, setBodyPart] = useState("all");
   const [exercises, setExercises] = useState([]);
 
-  window.scrollTo({ top: 0, left: 0 });
-
   return (
     <Box>
       <HeroBanner />
