@@ -38,7 +38,9 @@ function RightArrow() {
   );
 }
 HorizontalScrollbar.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  bodyPart: PropTypes.string.isRequired,
+  setBodyPart: PropTypes.func.isRequired
 };
 
 export default HorizontalScrollbar;
