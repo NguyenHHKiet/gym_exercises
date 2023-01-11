@@ -27,7 +27,7 @@ const ExerciseDetail = () => {
         `${youtubeSearchUrl}/search?query=${exerciseDetailData.name}`,
         youtubeOptions
       );
-      setExerciseVideos(exerciseVideoData);
+      setExerciseVideos(exerciseVideoData.contents);
     };
 
     fetchExercisesData();
