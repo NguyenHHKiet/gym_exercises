@@ -10,7 +10,9 @@ const SimilarExercises = ({ targetMuscleExercises, equipmentExercises }) => {
   return (
     <Box sx={{ mt: { lg: "100px", xs: "0" } }}>
       <Typography variant="h3" mb={5}>
-        Exercises that target the same muscle group
+        Exercises that{" "}
+        <span style={{ color: "#ff2625", textTransform: "capitalize" }}>target muscle</span>{" "}
+        exercises
       </Typography>
       <Stack direction={"row"} sx={{ p: "2", position: "relative" }}>
         {targetMuscleExercises.length ? (
@@ -20,7 +22,8 @@ const SimilarExercises = ({ targetMuscleExercises, equipmentExercises }) => {
         )}
       </Stack>{" "}
       <Typography variant="h3" mb={5}>
-        Exercises that target the same equipment group
+        Exercises that{" "}
+        <span style={{ color: "#ff2625", textTransform: "capitalize" }}>equipment</span> exercises
       </Typography>
       <Stack direction={"row"} sx={{ p: "2", position: "relative" }}>
         {equipmentExercises.length ? (
